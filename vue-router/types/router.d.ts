@@ -1,13 +1,13 @@
 import Vue, { ComponentOptions, PluginFunction, AsyncComponent } from 'vue'
 
 type Component = ComponentOptions<Vue> | typeof Vue | AsyncComponent
-type Dictionary < T > = { [key: string]: T }
+type Dictionary<T> = { [key: string]: T }
 type ErrorHandler = (err: Error) => void
 
 export type RouterMode = 'hash' | 'history' | 'abstract'
 export type RawLocation = string | Location
 export type RedirectOption = RawLocation | ((to: Route) => RawLocation)
-export type NavigationGuard < V extends Vue = Vue > = (
+export type NavigationGuard<V extends Vue = Vue> = (
   to: Route,
   from: Route,
   next: (to?: RawLocation | false | ((vm: V) => any) | void) => void
@@ -74,7 +74,7 @@ export interface RouterOptions {
     to: Route,
     from: Route,
     savedPosition: Position | void
-  ) => PositionResult | Promise<PositionResult>
+  ) => PositionResult | Promise<PositionResult> | undefined | null
 }
 
 type RoutePropsFunction = (route: Route) => Object
@@ -134,7 +134,7 @@ export interface Location {
 
 export interface Route {
   path: string
-  name?: string
+  name?: string | null
   hash: string
   query: Dictionary<string | (string | null)[]>
   params: Dictionary<string>
